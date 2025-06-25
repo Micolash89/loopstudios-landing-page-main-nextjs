@@ -5,18 +5,19 @@ export default function Creations() {
     <>
     <section>
 
+    
           Our creations
 
   See all
 
-  Deep earth
+  {/* Deep earth
   Night arcade
   Soccer team VR
   The grid
   From up above VR
   Pocket borealis
   The curiosity
-  Make it fisheye
+  Make it fisheye */}
     </section>
     
     </>
