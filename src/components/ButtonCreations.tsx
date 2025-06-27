@@ -3,7 +3,7 @@
 export default function ButtonCreations() {
   return (
     <>
-      <a href="#" className="font-bold sm:bg-black bg-white border border-black sm:border-none text-sm sm:text-white px-5 py-1 h-fit text-black">
+      <a href="#" className="font-bold hover:bg-black bg-white border tracking-[0.35rem] border-black hover:border-none text-sm hover:text-white px-10 py-3 h-fit text-black transition-all uppercase ">
             See all
           </a>
     </>
