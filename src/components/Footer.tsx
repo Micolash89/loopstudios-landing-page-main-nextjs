@@ -1,5 +1,6 @@
 import { arrImgLinksDefinition, arrLinksDefinition } from "@/lib/definitions";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function Footer() {
@@ -20,16 +21,19 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="py-12 flex flex-col gap-10 items-center sm:flex-row sm:justify-between max-w-5xl w-full m-auto">
+      <footer className="py-12 flex flex-col gap-10 items-center sm:flex-row sm:justify-between w-full m-auto bg-black">
+        <div className="max-w-5xl w-full m-auto">
+
+        
         <div className="flex flex-col items-center gap-10 sm:items-start">
-          <div>
+          <Link href="/">
             <Image
               src="/assets/images/logo.svg"
               alt="logo"
               width={135}
               height={135}
             />
-          </div>
+          </Link>
 
           <nav>
             <ul className="flex justify-center flex-col gap-5 sm:gap-10 sm:flex-row">
@@ -39,7 +43,7 @@ export default function Footer() {
             </ul>
           </nav>
         </div>
-        <div className="flex flex-col items-center gap-5 sm:items-end">
+        <div className="flex flex-col items-center gap-5 mt-10 sm:mt-0 sm:items-end">
           <nav>
             <ul className="flex justify-center gap-4 ">
               {arrImgLinks.map((link, index) => (
@@ -47,15 +51,10 @@ export default function Footer() {
               ))}
             </ul>
           </nav>
-
-          {/* About
-  Careers
-  Events
-  Products
-  Support */}
           <span className="text-sm font-light">
             © 2021 <strong>Loopstudios</strong>. All rights reserved.
           </span>
+        </div>
         </div>
       </footer>
     </>
@@ -65,13 +64,13 @@ export default function Footer() {
 export function LinksFooter({ name, url }: Readonly<arrLinksDefinition>) {
   return (
     <li className="font-bold ">
-      <a
+      <Link
         href={url}
         className="relative group transition-all duration-300 ease-in-out"
       >
         <span className="text-sm font-bold">{name}</span>
         <span className="absolute -bottom-2 left-2 right-2 h-0.5 bg-current transform scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-75"></span>
-      </a>
+      </Link>
     </li>
   );
 }
@@ -83,15 +82,15 @@ export function ImgLinksFooter({
 }: Readonly<arrImgLinksDefinition>) {
   return (
     <li className="font-bold ">
-      <a
+      <Link
         href={urlRef}
         className="relative group transition-all duration-300 ease-in-out"
         title={name}
       >
-        <Image src={url} alt={name} width={20} height={20} />
+        <Image src={url} alt={name} width={25} height={25} />
 
-        <span className="absolute -bottom-2 left-2 right-2 h-0.5 bg-current transform scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-75"></span>
-      </a>
+        <span className="absolute -bottom-2 left-2 right-2 h-0.5 bg-current transform scale-x-0 transition-transform duration-300 ease-in-out group-hover:scale-x-[300%]"></span>
+      </Link>
     </li>
   );
 }
