@@ -1,9 +1,29 @@
+"use client";
 import Image from "next/image";
 import ButtonCreations from "./ButtonCreations";
 import { CreationDefinition } from "@/lib/definitions";
 import Link from "next/link";
+import { useRef } from "react";
+import { useInView, motion } from "framer-motion";
 
 export default function Creations() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const refButton = useRef(null);
+  const isInViewButton = useInView(refButton, { once: true, amount: 0.3 });
+
+  const containerVariantsFather = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
   const creations = [
     {
       title: "Deep earth",
@@ -50,37 +70,60 @@ export default function Creations() {
   return (
     <>
       <section className="flex flex-col gap-10 pb-20 pt-5 sm:px-15 lg:px-0 bg-white text-black max-w-5xl w-full m-auto">
-        <header className="flex justify-center sm:justify-between items-center uppercase ">
+        <motion.header
+          ref={ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="flex justify-center sm:justify-between items-center uppercase "
+        >
           <h3 className="text-4xl sm:text-5xl  ">Our creations</h3>
           <div className="hidden sm:block">
             <ButtonCreations />
           </div>
-        </header>
-        <section className="grid grid-cols-1 sm:grid-cols-4 gap-5 ">
+        </motion.header>
+        <motion.section
+          variants={containerVariantsFather}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 sm:grid-cols-4 gap-5 "
+        >
           {creations.map((creation, index) => (
-            <Creation key={index} {...creation} />
+            <Creation key={index} {...creation} index={index} />
           ))}
-        </section>
+        </motion.section>
 
-        {/* Deep earth
-  Night arcade
-  Soccer team VR
-  The grid
-  From up above VR
-  Pocket borealis
-  The curiosity
-  Make it fisheye */}
-        <div className="block sm:hidden m-auto ">
+        <motion.div
+          ref={refButton}
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInViewButton ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="block sm:hidden m-auto "
+        >
           <ButtonCreations />
-        </div>
+        </motion.div>
       </section>
     </>
   );
 }
 
-export function Creation({ img, title, imgMobile }: CreationDefinition) {
+export function Creation({
+  img,
+  title,
+  imgMobile,
+  index,
+}: CreationDefinition & { index: number }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+
   return (
-    <div className=" flex flex-col items-center sm:nth-[4n]:items-end sm:nth-[4n+1]:items-start ">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.5, delay: index * 0.2, ease: "easeOut" }}
+      className=" flex flex-col items-center sm:nth-[4n]:items-end sm:nth-[4n+1]:items-start "
+    >
       <Link
         href="#"
         className="group relative hover:cursor-pointer w-fit hover:after:content-[''] hover:after:absolute hover:after:top-0 hover:after:left-0 hover:after:w-full hover:after:h-full hover:after:bg-white/50 hover:after:z-0 hover:after:transition-all hover:after:duration-500 ease-in-out"
@@ -103,6 +146,6 @@ export function Creation({ img, title, imgMobile }: CreationDefinition) {
           {title}
         </h3>
       </Link>
-    </div>
+    </motion.div>
   );
 }
